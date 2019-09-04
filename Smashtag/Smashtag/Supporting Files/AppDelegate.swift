@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -39,6 +40,69 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        // 在应用程序将终止时调用。保存数据，如果合适.
+        self.saveContext()
+    }
+
+    // MARK: - Core Data stack
+
+    lazy var persistentContainer: NSPersistentContainer = {
+        /*
+         The persistent container for the application. This implementation
+         creates and returns a container, having loaded the store for the
+         application to it. This property is optional since there are legitimate
+         error conditions that could cause the creation of the store to fail.
+         */
+        /*
+         此应用的持久容器。此实现创建并返回一个容器，并将应用程序的存储加载到该容器中。
+         此属性是可选的，因为存在可能导致创建存储失败的合法错误条件。
+         */
+        let container = NSPersistentContainer(name: "Smash")
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+
+                /*
+                 Typical reasons for an error here include:
+                 * The parent directory does not exist, cannot be created, or disallows writing.
+                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
+                 * The device is out of space.
+                 * The store could not be migrated to the current model version.
+                 Check the error message to determine what the actual problem was.
+                 */
+                //用代码替换此实现以适当地处理错误。
+                //fatalerrror（）导致应用程序生成崩溃日志并终止。您不应该在发货应用程序中使用此函数，尽管它在开发期间可能很有用。
+                /*
+                 这里出现错误的典型原因包括：
+                 *父目录不存在、无法创建或不允许写入。
+                 *由于设备锁定时的权限或数据保护，无法访问永久存储。
+                 *设备空间不足。
+                 *无法将存储迁移到当前模型版本。
+                 检查错误消息以确定实际问题是什么。
+                 */
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
+
+    // MARK: - Core Data Saving support
+
+    func saveContext () {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                //用代码替换此实现以适当地处理错误。
+                //fatalerrror（）导致应用程序生成崩溃日志并终止。您不应该在发货应用程序中使用此函数，尽管它在开发期间可能很有用。
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
     }
 
 

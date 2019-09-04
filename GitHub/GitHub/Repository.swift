@@ -10,6 +10,9 @@ import Foundation
 // 仓库
 public struct Repository: Decodable {
     public let id: Int
+    public var identifier: String {
+        return "\(id)"
+    }
     public let name: String
     public let created_at: String
     public var created: Date {

@@ -16,7 +16,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 //    var nameOfIntegers = Dictionary<Int, String>()
     private var tweets = [Array<Repository>]() {
         didSet {
-            print(tweets)
+            print(tweets.count)
         }
     }
 
@@ -30,6 +30,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
             searchForTweets()
             title = searchText
         }
+    }
+    func insetTweets(_ newTweets: [Repository]) {
+        self.tweets.insert(newTweets, at: 0)
+        self.tableView.insertSections([0], with: .fade)
     }
     private func twitterRequest() -> Request? {
         if let query = searchText, !query.isEmpty {
@@ -45,8 +49,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
             request.fetchRepos { [weak self] (newRepos) in
                 DispatchQueue.main.async {
                     if request == self?.lastTwitterRequest {
-                        self?.tweets.insert(newRepos, at: 0)
-                        self?.tableView.insertSections([0], with: .fade)
+                        self?.insetTweets(newRepos)
                     }
                 }
             }
