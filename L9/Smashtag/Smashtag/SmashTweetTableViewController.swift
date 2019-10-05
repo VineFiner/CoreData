@@ -10,6 +10,8 @@ import UIKit
 import GitHub
 import CoreData
 
+/// 这里是第一个视图
+
 class SmashTweetTableViewController: TweetTableViewController {
 
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer

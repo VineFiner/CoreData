@@ -16,26 +16,23 @@ public class ImageService {
     var memoryCache = NSCache<NSString, UIImage>()
 
     //
-    public func fetchImage(imageString: String?) -> UIImage? {
+    public func fetchImage(imageString: String?, finished: @escaping (UIImage) -> ()) {
         guard let poster =  imageString else {
-            return nil
+            return
         }
         if let cached = memoryCache.object(forKey: poster as NSString) {
-            return cached
+            finished(cached)
+            return
         }
         guard let profileImageURL = URL(string: poster) else {
-            return nil
+            return
         }
         URLSession.shared.dataTask(with: profileImageURL) { [weak self] (data, response, error) in
             if let imageData = data, let image = UIImage(data: imageData) {
                 self?.memoryCache.setObject(image, forKey: poster as NSString)
+                finished(image)
             }
         }.resume()
-        return nil
-//        guard let imageData = try? Data(contentsOf: profileImageURL),let image = UIImage(data: imageData) else {
-//             return nil
-//        }
-//        self.memoryCache.setObject(image, forKey: poster as NSString)
-//        return image
+        return
     }
 }

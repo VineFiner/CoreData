@@ -23,9 +23,11 @@ class TweetTableViewCell: UITableViewCell {
     private func updateUI() {
         tweetTextLabel.text = tweet?.name
         tweetUserLabel.text = tweet?.owner.login
-
-        tweetProfileImageView.image = ImageService.shared.fetchImage(imageString: tweet?.owner.avatar_url)
-
+        ImageService.shared.fetchImage(imageString: tweet?.owner.avatar_url) { [weak self] (image) in
+            DispatchQueue.main.async {
+                self?.tweetProfileImageView.image = image
+            }
+        }
         if let created = tweet?.created {
             let formatter = DateFormatter()
             if Date().timeIntervalSince(created) > 24 * 60 * 60 {

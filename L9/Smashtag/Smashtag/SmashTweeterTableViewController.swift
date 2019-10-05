@@ -16,7 +16,7 @@ class SmashTweeterTableViewController: FetchedResultsTableViewController {
             updateUI()
         }
     }
-    //
+    // 持久化容器
     var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer {
         didSet {
             updateUI()
