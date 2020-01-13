@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CourseEntity" representedClassName="CourseEntity" syncable="YES" codeGenerationType="category">
+        <attribute name="courseDescription" optional="YES" attributeType="String"/>
+        <attribute name="courseId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="courseImageUrl" optional="YES" attributeType="String"/>
+        <attribute name="courseName" optional="YES" attributeType="String"/>
+        <attribute name="isFollow" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="course_section" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SectionEntity" inverseName="section_course" inverseEntity="SectionEntity"/>
+        <relationship name="course_teacher" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TeacherEntity" inverseName="teacher_course" inverseEntity="TeacherEntity"/>
+    </entity>
+    <entity name="SectionEntity" representedClassName="SectionEntity" syncable="YES" codeGenerationType="category">
+        <attribute name="chapterId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="chapterName" optional="YES" attributeType="String"/>
+        <attribute name="chapterNum" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sectionId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sectionName" optional="YES" attributeType="String"/>
+        <attribute name="sectionNum" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sectionUrl" optional="YES" attributeType="String"/>
+        <relationship name="section_course" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CourseEntity" inverseName="course_section" inverseEntity="CourseEntity"/>
+    </entity>
+    <entity name="TeacherEntity" representedClassName="TeacherEntity" syncable="YES" codeGenerationType="category">
+        <attribute name="teacherDescription" optional="YES" attributeType="String"/>
+        <attribute name="teacherId" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="teacherName" optional="YES" attributeType="String"/>
+        <relationship name="teacher_course" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CourseEntity" inverseName="course_teacher" inverseEntity="CourseEntity"/>
+    </entity>
+    <elements>
+        <element name="CourseEntity" positionX="-119.26953125" positionY="-161.44921875" width="128" height="148"/>
+        <element name="SectionEntity" positionX="201.37890625" positionY="-247.40234375" width="128" height="163"/>
+        <element name="TeacherEntity" positionX="215.08984375" positionY="32.1953125" width="128" height="103"/>
+    </elements>
+</model>

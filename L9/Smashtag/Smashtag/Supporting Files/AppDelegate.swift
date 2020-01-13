@@ -58,6 +58,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          此属性是可选的，因为存在可能导致创建存储失败的合法错误条件。
          */
         let container = NSPersistentContainer(name: "Smash")
+        // 默认路径是
+        let directory = NSPersistentContainer.defaultDirectoryURL()
+        let url = directory.appendingPathComponent("Smash.sqlite")
+        print(url.absoluteString)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.

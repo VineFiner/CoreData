@@ -44,7 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           应用到它。 该属性是可选的，因为存在合法的
           可能导致存储创建失败的错误条件。
          */
-        let container = NSPersistentContainer(name: "Model")
+        let modelName = "Model"
+        let container = NSPersistentContainer(name: modelName)
+        // 容器目录
+        let directory = NSPersistentContainer.defaultDirectoryURL()
+        let url = directory.appendingPathComponent(modelName + ".sqlite")
+        print("pathUrl:\(url)")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.

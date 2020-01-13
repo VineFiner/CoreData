@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        addTweets()
     }
 
     // 添加一条记录
@@ -41,6 +42,7 @@ class ViewController: UIViewController {
             }
             // 进行保存
             try? context.save()
+            print("done loading database")
             self?.printDatabaseStatistics()
         })
     }
@@ -68,7 +70,7 @@ class ViewController: UIViewController {
     func findTweet(identifier: String) {
         // 创建一个查找请求
         let request: NSFetchRequest<Tweet> = Tweet.fetchRequest()
-        // 配置谓词
+        // 配置谓词, unique 唯一 约束
         request.predicate = NSPredicate(format: "unique = %@", identifier)
 
         // 上下文进行查找

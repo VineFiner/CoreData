@@ -54,11 +54,13 @@ class SmashTweeterTableViewController: FetchedResultsTableViewController {
         if let twitterUser = fetchedResultsController?.object(at: indexPath) {
             cell.textLabel?.text = twitterUser.handle
             let tweetCount = tweetCountWithMentionBy(twitterUser)
+            print("count:\(String(describing: twitterUser.tweets?.count))")
             cell.detailTextLabel?.text = "\(tweetCount) tweet\((tweetCount == 1) ? "s" : "")"
         }
         return cell
     }
     private func tweetCountWithMentionBy(_ twitterUser: TwitterUser) -> Int {
+        // 这里是直接查找的
         let request: NSFetchRequest<Tweet> = Tweet.fetchRequest()
         request.predicate = NSPredicate(format: "text contains[c] %@ and tweeter = %@", mention ?? "", twitterUser)
         return (try? twitterUser.managedObjectContext!.count(for: request)) ?? 0

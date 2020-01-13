@@ -30,6 +30,7 @@ class Tweet: NSManagedObject {
         tweet.unique = twitterInfo.identifier
         tweet.text = twitterInfo.name
         tweet.created = twitterInfo.created
+        // 这里是作废关系
         tweet.tweeter = try? TwitterUser.findOrCreateTwitterUser(matching: twitterInfo.owner, in: context)
         return tweet
     }
